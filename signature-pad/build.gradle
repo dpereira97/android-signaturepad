@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
 
 Properties properties = new Properties()
 final def bintrayPropertiesFile = project.rootProject.file('bintray.properties')
@@ -20,35 +19,7 @@ android {
     }
 }
 
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
 
-    configurations = ['archives']
-    publications = ['aar']
-    pkg {
-        repo = "maven"
-        name = project.POM_ARTIFACT_ID
-        desc = project.POM_DESCRIPTION
-        websiteUrl = project.POM_URL
-        vcsUrl = project.POM_SCM_URL
-        licenses = ["Apache-2.0"]
-        publish = true
-
-        version {
-            gpg {
-                sign = true
-                passphrase = properties.getProperty("bintray.gpg.passphrase")
-            }
-            mavenCentralSync {
-                sync = true
-                user = properties.getProperty("oss.userToken")
-                password = properties.getProperty("oss.userTokenValue")
-                close = '1'
-            }
-        }
-    }
-}
 
 project.ext {
     mavDevelopers = ["Fe": "Federico"]
